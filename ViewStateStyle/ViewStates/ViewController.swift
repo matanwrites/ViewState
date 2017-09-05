@@ -64,7 +64,6 @@ extension ViewController : ViewStateManaging {
     func render() {
         switch state {
         case .initial:
-            UIApplication.shared.endIgnoringInteractionEvents()
             if loginInteractor.isValid(email: emailTF.text, password: passwordTF.text) {
                 loginButton.alpha = 1
                 loginButton.isEnabled = true
@@ -153,11 +152,3 @@ class LoginInteractor {
         return !(id.isEmpty || pwd.isEmpty)
     }
 }
-
-class FakeAfterLoginController : UIViewController {
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("logout")
-        dismiss(animated: true, completion: nil)
-    }
-}
-
