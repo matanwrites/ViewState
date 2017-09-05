@@ -51,7 +51,7 @@ class ViewController: UIViewController {
 
 
 extension ViewController : ViewStateManaging {
-    enum ViewState {
+    enum ViewState : String {
         case initial
         case ready
         case interacting
@@ -62,6 +62,7 @@ extension ViewController : ViewStateManaging {
     }
     
     func render() {
+        print(state.rawValue)
         switch state {
         case .initial:
             if loginInteractor.isValid(email: emailTF.text, password: passwordTF.text) {
@@ -74,31 +75,25 @@ extension ViewController : ViewStateManaging {
             loginButton.setTitle("Login", for: .disabled)
             view.backgroundColor = UIColor(red:1.00, green:0.52, blue:0.11, alpha:1.0)
         case .ready:
-            print("ready")
             UIApplication.shared.endIgnoringInteractionEvents()
             loadingView.alpha = 0
         case .interacting:
-            print("interacting")
             UIApplication.shared.beginIgnoringInteractionEvents()
         case .loading:
-            print("loading")
             emailTF.resignFirstResponder()
             passwordTF.resignFirstResponder()
             UIApplication.shared.beginIgnoringInteractionEvents()
             loadingView.alpha = 0.4
         case .error:
-            print("error")
             view.backgroundColor = UIColor(colorLiteralRed: 1, green: 23/255.0, blue: 106/255.0, alpha: 1)
             loginButton.alpha = 0.2
             loginButton.isEnabled = false
             loginButton.setTitle("Login", for: .disabled)
         case .valid:
-            print("valid")
             view.backgroundColor = UIColor(colorLiteralRed: 133/255.0, green: 221/255.0, blue: 169/255.0, alpha: 1)
             loginButton.alpha = 1
             loginButton.isEnabled = true
         case .transitionning:
-            print("transitioning")
             loginButton.alpha = 1
             loginButton.isEnabled = false
             loginButton.setTitle("Welcome!", for: .disabled)

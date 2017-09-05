@@ -99,12 +99,3 @@ class LoginInteractor {
         return !(id.isEmpty || pwd.isEmpty)
     }
 }
-
-
-
-class FakeAfterLoginController : UIViewController {
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("logout")
-        dismiss(animated: true, completion: nil)
-    }
-}

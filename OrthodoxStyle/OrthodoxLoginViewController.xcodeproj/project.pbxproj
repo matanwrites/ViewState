@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83CEA8B81F5ED3A60051CCDD /* FakeAfterLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEA8B71F5ED3A60051CCDD /* FakeAfterLoginViewController.swift */; };
 		83E2E3ED1F5D399E00B45A9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E2E3EC1F5D399E00B45A9D /* AppDelegate.swift */; };
 		83E2E3EF1F5D399E00B45A9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E2E3EE1F5D399E00B45A9D /* ViewController.swift */; };
 		83E2E3F21F5D399E00B45A9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83E2E3F01F5D399E00B45A9D /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		83CEA8B71F5ED3A60051CCDD /* FakeAfterLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAfterLoginViewController.swift; sourceTree = "<group>"; };
 		83E2E3E91F5D399E00B45A9D /* OrthodoxLoginViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OrthodoxLoginViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E2E3EC1F5D399E00B45A9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83E2E3EE1F5D399E00B45A9D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			children = (
 				83E2E3EC1F5D399E00B45A9D /* AppDelegate.swift */,
 				83E2E3EE1F5D399E00B45A9D /* ViewController.swift */,
+				83CEA8B71F5ED3A60051CCDD /* FakeAfterLoginViewController.swift */,
 				83E2E3F01F5D399E00B45A9D /* Main.storyboard */,
 				83E2E3F31F5D399E00B45A9D /* Assets.xcassets */,
 				83E2E3F51F5D399E00B45A9D /* LaunchScreen.storyboard */,
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83CEA8B81F5ED3A60051CCDD /* FakeAfterLoginViewController.swift in Sources */,
 				83E2E3EF1F5D399E00B45A9D /* ViewController.swift in Sources */,
 				83E2E3ED1F5D399E00B45A9D /* AppDelegate.swift in Sources */,
 			);
@@ -304,6 +308,7 @@
 				83E2E3FD1F5D399E00B45A9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
