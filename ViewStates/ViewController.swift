@@ -32,30 +32,19 @@ class ViewController: UIViewController {
         loginInteractor.delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        textDidChange(emailTF)
+        state = .initial
     }
     
     @IBAction func loginTapped(_ sender: Any) {
-        loginInteractor.loginUser()
+        loginInteractor.loginUser(email: emailTF.text!, password: passwordTF.text!)
     }
     
     
     @IBAction func textDidChange(_ sender: UITextField) {
-        var email = emailTF.text ?? ""
-        var password = passwordTF.text ?? ""
-        
-        if sender == emailTF {
-            email = sender.text ?? ""
-        }
-        
-        if sender == passwordTF {
-            password = sender.text ?? ""
-        }
-        
-        loginInteractor.validate(email: email, password: password)
+        loginInteractor.validate(email: emailTF.text, password: passwordTF.text)
     }
 }
 
@@ -63,6 +52,7 @@ class ViewController: UIViewController {
 
 extension ViewController : ViewStateManaging {
     enum ViewState {
+        case initial
         case ready
         case interacting
         case loading
@@ -73,6 +63,17 @@ extension ViewController : ViewStateManaging {
     
     func render() {
         switch state {
+        case .initial:
+            UIApplication.shared.endIgnoringInteractionEvents()
+            if loginInteractor.isValid(email: emailTF.text, password: passwordTF.text) {
+                loginButton.alpha = 1
+                loginButton.isEnabled = true
+            } else {
+                loginButton.alpha = 0.2
+                loginButton.isEnabled = false
+            }
+            loginButton.setTitle("Login", for: .disabled)
+            view.backgroundColor = UIColor(red:1.00, green:0.52, blue:0.11, alpha:1.0)
         case .ready:
             print("ready")
             UIApplication.shared.endIgnoringInteractionEvents()
@@ -91,6 +92,7 @@ extension ViewController : ViewStateManaging {
             view.backgroundColor = UIColor(colorLiteralRed: 1, green: 23/255.0, blue: 106/255.0, alpha: 1)
             loginButton.alpha = 0.2
             loginButton.isEnabled = false
+            loginButton.setTitle("Login", for: .disabled)
         case .valid:
             print("valid")
             view.backgroundColor = UIColor(colorLiteralRed: 133/255.0, green: 221/255.0, blue: 169/255.0, alpha: 1)
@@ -100,9 +102,9 @@ extension ViewController : ViewStateManaging {
             print("transitioning")
             loginButton.alpha = 1
             loginButton.isEnabled = false
+            loginButton.setTitle("Welcome!", for: .disabled)
             loadingView.alpha = 0
-            UIApplication.shared.beginIgnoringInteractionEvents()
-//animating transition
+            present(FakeAfterLoginController(), animated: true, completion: nil)
             UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
@@ -113,24 +115,49 @@ extension ViewController : ViewStateManaging {
 class LoginInteractor {
     weak var delegate: ViewStateManaging?
     
-    func loginUser() {
+    func loginUser(email: String, password: String) {
 
         delegate?.state = .loading
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
-            self.delegate?.state = .ready
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+            //lets say our fake network call do not like login with z
+            let success = !email.contains("z")
+            if success {
+                self.delegate?.state = .valid
+                self.delegate?.state = .transitionning
+            } else {
+                self.delegate?.state = .error
+                self.delegate?.state = .ready
+            }
+            
         })
     }
     
-    func validate(email: String, password: String) {
+    func validate(email: String?, password: String?) {
         delegate?.state = .interacting
         
-        if email.isEmpty || password.isEmpty {
-            delegate?.state = .error
-        } else {
+        let valid = isValid(email: email, password: password)
+        if valid {
             delegate?.state = .valid
+        } else {
+            delegate?.state = .error
         }
         
         delegate?.state = .ready
+    }
+    
+    func isValid(email: String?, password: String?) -> Bool {
+        guard let id = email, let pwd = password else {
+            return false
+        }
+        
+        return !(id.isEmpty || pwd.isEmpty)
+    }
+}
+
+class FakeAfterLoginController : UIViewController {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("logout")
+        dismiss(animated: true, completion: nil)
     }
 }
 
