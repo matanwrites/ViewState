@@ -5,4 +5,4 @@ React inspired ViewState for iOS
 
 ## Motivation
 
-Example project for "mode your use case" post: https://medium.com/@mathieutan/modelize-your-use-cases-as-view-states-7bd61ac77ed0
+Example project for "Model your use case as view states" post: https://medium.com/@mathieutan/modelize-your-use-cases-as-view-states-7bd61ac77ed0
