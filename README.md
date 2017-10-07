@@ -1,6 +1,8 @@
 # ViewState
 React inspired ViewState for iOS
 
+Comparison between a react and a orthodox style of writting a Login UI
+
 ![alt text](https://github.com/taiyungo/ViewState/blob/master/viewstate.png)
 
 ## Motivation
